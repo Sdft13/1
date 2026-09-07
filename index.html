@@ -3,110 +3,851 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Портфолио по теме Monster Hunter">
+
+    <meta name="description"
+          content="Учебный проект Monster Hunter">
+
     <title>Monster Hunter | Портфолио</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ================================
+           ОСНОВНЫЕ НАСТРОЙКИ
+        ================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0d0c;
+            color: #f4f1e8;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1150px;
+            margin: auto;
+        }
+
+
+        /* ================================
+           ШАПКА
+        ================================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            background: rgba(10, 12, 11, 0.95);
+            border-bottom: 1px solid #343a34;
+        }
+
+        .nav {
+            min-height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: white;
+            text-decoration: none;
+
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #d7aa2d;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #b4b8b2;
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #e8bf42;
+        }
+
+
+        /* ================================
+           ГЛАВНЫЙ ЭКРАН
+        ================================= */
+
+        .hero {
+            min-height: 750px;
+
+            display: flex;
+            align-items: center;
+
+            position: relative;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 75% 35%,
+                    rgba(215, 170, 45, 0.20),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 20% 80%,
+                    rgba(60, 90, 55, 0.25),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #090b0a,
+                    #182019,
+                    #090b0a
+                );
+        }
+
+        .hero::after {
+            content: "MH";
+
+            position: absolute;
+            right: 5%;
+            bottom: -80px;
+
+            font-size: 350px;
+            font-weight: bold;
+
+            color: rgba(255,255,255,0.025);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            padding-top: 70px;
+        }
+
+        .subtitle {
+            color: #d7aa2d;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(60px, 11vw, 145px);
+
+            line-height: 0.9;
+
+            letter-spacing: -5px;
+
+            margin-bottom: 30px;
+        }
+
+        h1 span {
+            color: #d7aa2d;
+        }
+
+        .hero-text {
+            max-width: 650px;
+
+            color: #aeb3ac;
+
+            font-size: 17px;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* ================================
+           КНОПКИ
+        ================================= */
+
+        .button {
+            display: inline-block;
+
+            border: none;
+
+            background: #d7aa2d;
+            color: #151108;
+
+            padding: 14px 25px;
+
+            border-radius: 5px;
+
+            text-decoration: none;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background: #f0c94e;
+
+            transform: translateY(-3px);
+        }
+
+
+        /* ================================
+           СЕКЦИИ
+        ================================= */
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            margin-bottom: 45px;
+        }
+
+        .section-title small {
+            color: #d7aa2d;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            letter-spacing: 3px;
+        }
+
+        .section-title h2 {
+            font-size: 50px;
+
+            margin: 10px 0;
+        }
+
+        .section-title p {
+            color: #aeb3ac;
+
+            max-width: 650px;
+        }
+
+
+        /* ================================
+           КАРТОЧКИ МОНСТРОВ
+        ================================= */
+
+        .monsters {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+        .card {
+            background: #151916;
+
+            border: 1px solid #343a34;
+
+            border-radius: 12px;
+
+            padding: 30px;
+
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+
+            border-color: #d7aa2d;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.35);
+        }
+
+        .monster-icon {
+            width: 80px;
+            height: 80px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #202720;
+
+            font-size: 40px;
+
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 25px;
+
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #aeb3ac;
+
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+
+            color: #e5bc42;
+
+            border: 1px solid #d7aa2d;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+        }
+
+
+        /* ================================
+           О ПРОЕКТЕ
+        ================================= */
+
+        .about {
+            background: #111511;
+
+            border-top: 1px solid #343a34;
+            border-bottom: 1px solid #343a34;
+        }
+
+        .about-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 70px;
+        }
+
+        .about h2 {
+            font-size: 50px;
+        }
+
+        .about p {
+            color: #aeb3ac;
+
+            margin-bottom: 25px;
+        }
+
+        .skills {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            list-style: none;
+        }
+
+        .skills li {
+            background: #202720;
+
+            border: 1px solid #343a34;
+
+            padding: 8px 14px;
+
+            border-radius: 5px;
+
+            font-size: 13px;
+        }
+
+
+        /* ================================
+           КОНТАКТЫ
+        ================================= */
+
+        .contact {
+            text-align: center;
+        }
+
+        .contact-box {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .contact h2 {
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+        .contact p {
+            color: #aeb3ac;
+
+            margin-bottom: 25px;
+        }
+
+        #message {
+            color: #e5bc42;
+
+            font-weight: bold;
+
+            min-height: 25px;
+        }
+
+
+        /* ================================
+           FOOTER
+        ================================= */
+
+        footer {
+            padding: 30px 0;
+
+            text-align: center;
+
+            color: #777d76;
+
+            font-size: 13px;
+
+            border-top: 1px solid #343a34;
+        }
+
+
+        /* ================================
+           АДАПТИВНОСТЬ
+        ================================= */
+
+        @media (max-width: 800px) {
+
+            .nav {
+                flex-direction: column;
+
+                padding: 15px 0;
+            }
+
+            nav {
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+                gap: 15px;
+            }
+
+            .hero {
+                min-height: 650px;
+            }
+
+            .monsters {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            h1 {
+                letter-spacing: -3px;
+            }
+
+            .section-title h2,
+            .about h2,
+            .contact h2 {
+                font-size: 38px;
+            }
+        }
+    </style>
 </head>
+
+
 <body>
-    <header class="header">
+
+    <!-- ================================
+         ШАПКА
+    ================================= -->
+
+    <header>
+
         <div class="container nav">
-            <a class="logo" href="#home">MONSTER<span>HUNTER</span></a>
+
+            <a href="#home" class="logo">
+                MONSTER<span>HUNTER</span>
+            </a>
+
             <nav>
-                <a href="#home">Главная</a>
-                <a href="#monsters">Монстры</a>
-                <a href="#about">О проекте</a>
-                <a href="#contacts">Контакты</a>
+
+                <a href="#home">
+                    Главная
+                </a>
+
+                <a href="#monsters">
+                    Монстры
+                </a>
+
+                <a href="#about">
+                    О проекте
+                </a>
+
+                <a href="#contacts">
+                    Контакты
+                </a>
+
             </nav>
+
         </div>
+
     </header>
 
+
+
+    <!-- ================================
+         ГЛАВНАЯ
+    ================================= -->
+
     <main>
+
         <section id="home" class="hero">
-            <div class="hero-overlay"></div>
+
             <div class="container hero-content">
-                <p class="eyebrow">ПОРТФОЛИО ВЕБ-РАЗРАБОТЧИКА</p>
-                <h1>МИР<br><span>МОНСТРОВ</span></h1>
+
+                <div class="subtitle">
+                    УЧЕБНЫЙ WEB-ПРОЕКТ
+                </div>
+
+                <h1>
+                    МИР<br>
+                    <span>МОНСТРОВ</span>
+                </h1>
+
                 <p class="hero-text">
-                    Небольшой учебный веб-проект, посвящённый яркому миру Monster Hunter:
-                    охотникам, приключениям и легендарным существам.
+
+                    Добро пожаловать в учебное портфолио,
+                    посвящённое миру Monster Hunter.
+                    Здесь охотники встречаются с легендарными
+                    монстрами, а HTML и CSS встречаются
+                    с современным веб-дизайном.
+
                 </p>
-                <a class="button" href="#monsters">Исследовать мир</a>
+
+                <a href="#monsters" class="button">
+                    Исследовать мир
+                </a>
+
             </div>
+
         </section>
 
-        <section id="monsters" class="section">
+
+
+        <!-- ================================
+             МОНСТРЫ
+        ================================= -->
+
+        <section id="monsters">
+
             <div class="container">
-                <div class="section-heading">
-                    <p class="eyebrow">БЕСТИАРИЙ</p>
-                    <h2>Избранные монстры</h2>
-                    <p>Три легендарных образа для демонстрации возможностей HTML и CSS.</p>
-                </div>
 
-                <div class="cards">
-                    <article class="card">
-                        <div class="monster-icon">🐉</div>
-                        <h3>Раталос</h3>
-                        <p>Небесный хищник, известный своей силой и огненным дыханием.</p>
-                        <span class="tag">ОГОНЬ</span>
-                    </article>
+                <div class="section-title">
 
-                    <article class="card">
-                        <div class="monster-icon">🦖</div>
-                        <h3>Аньянаф</h3>
-                        <p>Мощный монстр, который сочетает скорость, ярость и разрушительную атаку.</p>
-                        <span class="tag">ХИЩНИК</span>
-                    </article>
+                    <small>
+                        БЕСТИАРИЙ
+                    </small>
 
-                    <article class="card">
-                        <div class="monster-icon">🐲</div>
-                        <h3>Зиногр</h3>
-                        <p>Грозный зверь, окружённый электрическими разрядами во время охоты.</p>
-                        <span class="tag">МОЛНИЯ</span>
-                    </article>
-                </div>
-            </div>
-        </section>
+                    <h2>
+                        Избранные монстры
+                    </h2>
 
-        <section id="about" class="about section">
-            <div class="container about-grid">
-                <div>
-                    <p class="eyebrow">О ПРОЕКТЕ</p>
-                    <h2>Учебное портфолио</h2>
-                </div>
-                <div>
                     <p>
-                        Этот сайт создан в рамках практического задания по организации
-                        рабочей среды для веб-проекта. Использованы HTML, CSS и JavaScript.
-                        Проект подготовлен для проверки в Google Chrome, Chrome DevTools,
-                        Git и последующей публикации на GitHub.
+                        Несколько известных существ
+                        для демонстрации карточек,
+                        сеток и адаптивной вёрстки.
                     </p>
-                    <ul class="skills">
-                        <li>HTML5</li>
-                        <li>CSS3</li>
-                        <li>JavaScript</li>
-                        <li>Git / GitHub</li>
-                    </ul>
+
                 </div>
+
+
+                <div class="monsters">
+
+
+                    <!-- Монстр 1 -->
+
+                    <article class="card">
+
+                        <div class="monster-icon">
+                            🐉
+                        </div>
+
+                        <h3>
+                            Раталос
+                        </h3>
+
+                        <p>
+                            Небесный хищник, известный
+                            своей силой, скоростью
+                            и огненным дыханием.
+                        </p>
+
+                        <span class="tag">
+                            ОГОНЬ
+                        </span>
+
+                    </article>
+
+
+                    <!-- Монстр 2 -->
+
+                    <article class="card">
+
+                        <div class="monster-icon">
+                            🦖
+                        </div>
+
+                        <h3>
+                            Аньянаф
+                        </h3>
+
+                        <p>
+                            Мощный хищник, сочетающий
+                            скорость, ярость
+                            и разрушительные атаки.
+                        </p>
+
+                        <span class="tag">
+                            ХИЩНИК
+                        </span>
+
+                    </article>
+
+
+                    <!-- Монстр 3 -->
+
+                    <article class="card">
+
+                        <div class="monster-icon">
+                            🐲
+                        </div>
+
+                        <h3>
+                            Зиногр
+                        </h3>
+
+                        <p>
+                            Грозный зверь, окружённый
+                            электрическими разрядами
+                            во время охоты.
+                        </p>
+
+                        <span class="tag">
+                            МОЛНИЯ
+                        </span>
+
+                    </article>
+
+                </div>
+
             </div>
+
         </section>
 
-        <section id="contacts" class="contact section">
-            <div class="container contact-box">
-                <p class="eyebrow">ФИНАЛЬНЫЙ ШАГ</p>
-                <h2>Готов к следующей охоте?</h2>
-                <p>Нажми кнопку, чтобы проверить работу JavaScript.</p>
-                <button class="button" id="huntButton">Начать охоту</button>
-                <p id="message" class="message"></p>
+
+
+        <!-- ================================
+             О ПРОЕКТЕ
+        ================================= -->
+
+        <section id="about" class="about">
+
+            <div class="container about-grid">
+
+
+                <div>
+
+                    <div class="section-title">
+
+                        <small>
+                            О ПРОЕКТЕ
+                        </small>
+
+                        <h2>
+                            Учебное портфолио
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <p>
+
+                        Этот сайт создан в рамках
+                        практического задания
+                        «Организация рабочей среды
+                        для веб-проекта».
+
+                    </p>
+
+                    <p>
+
+                        В проекте используются HTML5,
+                        CSS3 и JavaScript.
+                        Страница подготовлена для
+                        проверки в Google Chrome
+                        и Chrome DevTools.
+
+                    </p>
+
+
+                    <ul class="skills">
+
+                        <li>
+                            HTML5
+                        </li>
+
+                        <li>
+                            CSS3
+                        </li>
+
+                        <li>
+                            JavaScript
+                        </li>
+
+                        <li>
+                            Git
+                        </li>
+
+                        <li>
+                            GitHub
+                        </li>
+
+                        <li>
+                            Figma
+                        </li>
+
+                    </ul>
+
+                </div>
+
             </div>
+
         </section>
+
+
+
+        <!-- ================================
+             КОНТАКТЫ
+        ================================= -->
+
+        <section id="contacts" class="contact">
+
+            <div class="container contact-box">
+
+                <div class="section-title">
+
+                    <small>
+                        ФИНАЛЬНЫЙ ШАГ
+                    </small>
+
+                    <h2>
+                        Готов к следующей охоте?
+                    </h2>
+
+                </div>
+
+                <p>
+                    Нажми кнопку ниже,
+                    чтобы проверить работу JavaScript.
+                </p>
+
+                <button
+                    class="button"
+                    id="huntButton">
+
+                    Начать охоту
+
+                </button>
+
+                <div id="message"></div>
+
+            </div>
+
+        </section>
+
     </main>
 
-    <footer class="footer">
+
+
+    <!-- ================================
+         ПОДВАЛ
+    ================================= -->
+
+    <footer>
+
         <div class="container">
-            <p>© 2026 Monster Hunter Portfolio · Учебный веб-проект</p>
+
+            © 2026 Monster Hunter Portfolio |
+            Учебный веб-проект
+
         </div>
+
     </footer>
 
-    <script src="js/script.js"></script>
+
+
+    <!-- ================================
+         JAVASCRIPT
+    ================================= -->
+
+    <script>
+
+        const huntButton =
+            document.getElementById("huntButton");
+
+        const message =
+            document.getElementById("message");
+
+
+        huntButton.addEventListener(
+            "click",
+            function () {
+
+                message.textContent =
+                    "⚔️ Охота началась! Монстр найден. Удачи, охотник!";
+
+                huntButton.textContent =
+                    "Охота продолжается";
+
+            }
+        );
+
+    </script>
+
 </body>
 </html>
